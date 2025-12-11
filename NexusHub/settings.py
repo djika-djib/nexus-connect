@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # <-- add this
 ]
 
 ROOT_URLCONF = 'NexusHub.urls'
@@ -123,6 +124,14 @@ STATIC_URL = 'static/'
 # # Static files
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')   # for collectstatic (deployment)
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # local static
+
+# Directory where `collectstatic` will collect static files for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Where Django will search for additional static files in development
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 
 
