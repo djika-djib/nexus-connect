@@ -4,11 +4,26 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django.conf import settings
 from .forms import ContactForm
+from django.db import OperationalError
+
 
 def home(request):
-    pillars = CorePillar.objects.all()
-    services = Service.objects.all()
+    try:
+        pillars = CorePillar.objects.all()
+        services = Service.objects.all()
+    except OperationalError as e:
+        # Log would be better to a logger; for now render a simple maintenance/fallback view
+        return render(request, 'core/maintenance.html', {
+            'message': 'Database not ready yet. Please check deployment logs.'
+        }, status=503)
+
     return render(request, 'core/home.html', {'pillars': pillars, 'services': services})
+
+
+# def home(request):
+#     pillars = CorePillar.objects.all()
+#     services = Service.objects.all()
+#     return render(request, 'core/home.html', {'pillars': pillars, 'services': services})
 
 def about(request):
     return render(request, 'core/about.html')
