@@ -5,9 +5,13 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py migrate --noinput
-      python manage.py collectstatic --noinput
-    startCommand: gunicorn NexusHub.wsgi
+    startCommand: >
+      bash -lc "
+      python manage.py migrate --noinput &&
+      python manage.py collectstatic --noinput &&
+      python manage.py createsuperuser --noinput || true &&
+      exec gunicorn NexusHub.wsgi
+      "
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
