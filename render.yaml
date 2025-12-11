@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nexus-connect
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn NexusHub.wsgi
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
