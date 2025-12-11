@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nexus Connect — Digital Innovation Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      
+      <!-- Logo -->
+      <a href="{% url 'core:home' %}" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Nexus Connect logo">
+      </a>
+
+      <!-- Navigation -->
+      <nav class="nav">
+        <a href="{% url 'core:about' %}">About</a>
+        <a href="{% url 'core:services' %}">Services</a>
+        <a href="{% url 'core:contact' %}">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {% now "Y" %} Nexus Connect — Digital Innovation Hub</p>
+    </div>
+  </footer>
+
+
+
+    <!-- Include UI JS -->
+  <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>
+
+
+</body>
+</html>

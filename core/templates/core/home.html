@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- ===========================
+      HERO SECTION
+=========================== -->
+<section class="hero">
+  <div class="container hero-inner">
+
+    <!-- Hero text: reveal class triggers JS/CSS animation -->
+    <div class="hero-text reveal">
+      <h1>Nexus Connect</h1>
+      <p class="tagline">
+        Digital Innovation Hub — empowering Africa through Robotics, AI, Software Engineering, and Embedded Systems.
+      </p>
+      <a class="btn primary" href="{% url 'core:contact' %}">Get in touch</a>
+    </div>
+
+    <!-- Hero image also gently floats and can reveal -->
+    <div class="hero-image reveal">
+      <img src="{% static 'images/logo.png' %}" alt="Nexus Connect Logo">
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ===========================
+      OUR PILLARS
+=========================== -->
+<section class="pillars container">
+  <h2 class="reveal">Our Pillars</h2>
+
+  <div class="grid">
+    {% for p in pillars %}
+      {# Each card has .card and .reveal so it will animate. #}
+      <div class="card pillar reveal">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.summary }}</p>
+      </div>
+    {% empty %}
+      <p style="color: var(--muted);">No pillars added yet. Add them in the admin panel.</p>
+    {% endfor %}
+  </div>
+</section>
+
+
+
+<!-- ===========================
+      OUR SERVICES
+=========================== -->
+<section class="services container" style="margin-top:40px;">
+  <h2 class="reveal">Services</h2>
+
+  <div class="grid">
+    {% for s in services %}
+      <div class="card service reveal">
+        <h3>{{ s.name }}</h3>
+        <p>{{ s.short_description }}</p>
+        {% if s.link %}
+          <p style="margin-top:12px;">
+            <a href="{{ s.link }}" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px;border-radius:8px;text-decoration:none;">
+              Learn more
+            </a>
+          </p>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p style="color: var(--muted);">No services added yet. Add them in the admin panel.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<section class="container" style="padding:48px 22px;">
+  <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start;">
+
+    <!-- Left: Form -->
+    <div>
+      <h2>Contact</h2>
+      <p class="muted">For enquiries, partnerships or media, send us a message and we'll reply as soon as possible.</p>
+
+      {% if messages %}
+        <div style="margin-top:18px;">
+          {% for msg in messages %}
+            <div class="card message {{ msg.tags }}">
+              <p>{{ msg }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="post" novalidate class="contact-form" style="margin-top:18px;">
+        {% csrf_token %}
+        <div class="field-row">
+          <div class="field">
+            {{ form.name }}
+            {% for err in form.name.errors %}<p class="field-error">{{ err }}</p>{% endfor %}
+          </div>
+          <div class="field">
+            {{ form.email }}
+            {% for err in form.email.errors %}<p class="field-error">{{ err }}</p>{% endfor %}
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:12px;">
+          {{ form.subject }}
+          {% for err in form.subject.errors %}<p class="field-error">{{ err }}</p>{% endfor %}
+        </div>
+
+        <div class="field" style="margin-top:12px;">
+          {{ form.message }}
+          {% for err in form.message.errors %}<p class="field-error">{{ err }}</p>{% endfor %}
+        </div>
+
+        <div style="margin-top:16px;">
+          <button type="submit" class="btn primary">Send message</button>
+          <span style="margin-left:12px;color:var(--muted);font-size:0.95rem;">or email <a href="mailto:{{ settings.CONTACT_EMAIL }}" style="color:var(--accent)">{{ settings.CONTACT_EMAIL }}</a></span>
+        </div>
+      </form>
+    </div>
+
+    <!-- Right: Info / Quick contacts -->
+    <aside class="card contact-info">
+      <h3 style="color:var(--accent);margin-bottom:6px;">Quick contacts</h3>
+      <p class="muted" style="margin-bottom:12px;">Get in touch with the team directly for specific enquiries.</p>
+
+      <div class="quick-item">
+        <strong>General</strong>
+        <div class="muted">Email: <a href="mailto:{{ settings.CONTACT_EMAIL }}">djika.merndv@gmail.com{{ settings.CONTACT_EMAIL }}</a></div>
+      </div>
+
+      <div class="quick-item" style="margin-top:12px;">
+        <strong>Location</strong>
+        <div class="muted">BP 318, Niamey, Niger</div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <a class="btn" href="{% url 'core:about' %}" style="background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px;">Learn more about us</a>
+      </div>
+    </aside>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,357 @@
+/* ------------------------------
+   COLOR PALETTE (matches your logo)
+   ------------------------------ */
+:root{
+  --bg: #1E232A;              /* Dark charcoal background */
+  --card-bg: #242B33;         /* Slightly lighter for cards */
+  --accent: #FF6A2A;          /* Orange from your logo */
+  --text: #FFFFFF;            /* White text */
+  --muted: #A8B0BA;           /* Muted grey text */
+  --radius: 12px;
+  --max-width: 1200px;
+  --shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* ------------------------------
+   GLOBAL CONTAINERS
+   ------------------------------ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 22px;
+}
+
+/* ------------------------------
+   HEADER + NAV
+   ------------------------------ */
+.site-header {
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(6px);
+  z-index: 20;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 56px;
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.4));
+}
+
+.nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+/* ------------------------------
+   HERO SECTION
+   ------------------------------ */
+.hero {
+  padding: 80px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.hero-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  color: var(--muted);
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.hero-image img {
+  height: 160px;
+  opacity: 0.95;
+}
+
+/* ------------------------------
+   BUTTONS
+   ------------------------------ */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.btn.primary:hover {
+  opacity: 0.85;
+}
+
+/* ------------------------------
+   PILLARS + SERVICES GRID
+   ------------------------------ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: var(--shadow);
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+/* ------------------------------
+   FOOTER
+   ------------------------------ */
+.site-footer {
+  padding: 28px 0;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 40px;
+}
+
+/* ------------------------------
+   RESPONSIVE FIXES
+   ------------------------------ */
+@media (max-width: 768px) {
+  .hero-inner {
+    text-align: center;
+    flex-direction: column;
+  }
+  .hero-image img {
+    margin-top: 22px;
+  }
+}
+
+
+
+
+
+
+/* -------------------------
+   ANIMATIONS & TRANSITIONS
+   ------------------------- */
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  :root { --animate-duration: 0ms; }
+  .animate, .reveal {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Default animation duration variable */
+:root { --animate-duration: 420ms; --ease: cubic-bezier(.2,.9,.3,1); }
+
+/* Fade / slide reveal used for sections and cards */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--animate-duration) var(--ease),
+              transform var(--animate-duration) var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger helper — used by JS via inline style --delay */
+.reveal[data-delay] {
+  transition-delay: calc(var(--delay, 0ms));
+}
+
+/* Card micro-interaction (already had transform on hover) */
+.card {
+  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), border-color 320ms var(--ease);
+  will-change: transform, box-shadow;
+}
+
+/* Slightly stronger hover for desktops */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.42);
+  }
+}
+
+/* Button shine effect */
+.btn.primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.primary::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -60%;
+  width: 40%;
+  height: 160%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06), rgba(255,255,255,0.12));
+  transform: rotate(18deg);
+  transition: transform 650ms var(--ease), opacity 420ms var(--ease);
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn.primary:hover::after {
+    transform: translateX(240%) rotate(18deg);
+    opacity: 1;
+  }
+}
+
+/* Soft focus ring for accessibility */
+.btn:focus {
+  outline: 3px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 6px rgba(255,106,42,0.08);
+}
+
+/* Hero logo float (gentle loop) */
+@keyframes floatY {
+  0% { transform: translateY(0px) rotate(0.0deg); }
+  50% { transform: translateY(-8px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0.0deg); }
+}
+
+.hero-image img {
+  will-change: transform;
+  animation: floatY 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Make the float subtler on small screens */
+@media (max-width: 768px) {
+  .hero-image img { animation-duration: 9s; height: 140px; }
+}
+
+/* Subtle underline animation for nav links */
+.nav a {
+  position: relative;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.12), var(--accent));
+  transition: width 280ms var(--ease);
+}
+
+.nav a:hover::after, .nav a:focus::after {
+  width: 100%;
+}
+
+/* Slight delay reveal for hero text elements */
+.hero-text .tagline, .hero-text h1 {
+  transition: opacity calc(var(--animate-duration) + 120ms) var(--ease), transform var(--animate-duration) var(--ease);
+  opacity: 0; transform: translateY(6px);
+}
+
+.hero-text.visible .tagline, .hero-text.visible h1 {
+  opacity: 1; transform: translateY(0);
+}
+
+
+
+/* CONTACT FORM STYLING */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.18);
+  color: var(--text);
+  font-size: 1rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  outline: none;
+}
+
+.contact-form textarea { min-height: 160px; resize: vertical; }
+
+.field-row { display:flex; gap:12px; }
+.field { flex:1; display:flex; flex-direction:column; }
+
+.field-error {
+  color: #ffb5a0;
+  font-size: 0.9rem;
+  margin-top:6px;
+}
+
+.card.contact-info {
+  padding:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.message.success { border-left: 4px solid var(--accent); }
+.message.error { border-left: 4px solid rgba(255,80,80,0.85); }
+
+.muted { color: var(--muted); font-size: 0.98rem; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container > div { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .field-row { flex-direction: column; }
+}

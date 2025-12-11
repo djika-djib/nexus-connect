@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="container" style="padding:48px 22px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <h2>Services</h2>
+    <p style="color:var(--muted);margin-top:8px;">
+      We provide tailored services to startups, researchers and teams building hardware + software products.
+    </p>
+
+    <div class="grid" style="margin-top:20px;">
+      {% for s in services %}
+        <div class="card service">
+          <h3>{{ s.name }}</h3>
+          <p style="color:var(--muted)">{{ s.short_description }}</p>
+          {% if s.link %}
+            <p style="margin-top:12px;"><a href="{{ s.link }}" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px;border-radius:8px;text-decoration:none;">Learn more</a></p>
+          {% endif %}
+        </div>
+      {% empty %}
+        <div style="color:var(--muted);">No services added yet. Add them in the admin panel.</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}
